@@ -14,23 +14,28 @@ import { withBase } from 'vitepress'
   </div>
 
   <div class="home-entry-grid">
+    <a class="home-entry-card" :href="withBase('/临川每周活动预览/临川每周活动预览')">
+      <span>01 每周活动</span>
+      <strong>临川每周活动预览</strong>
+      <p>Turboflow、HIBT 等平台活动时间、交易量要求和 VIP 群规则。</p>
+    </a>
     <a class="home-entry-card" :href="withBase('/临川事件合约推广链接/临川事件交易所注册返佣链接')">
-      <span>01 事件合约</span>
+      <span>02 事件合约</span>
       <strong>事件合约邀请返佣链接</strong>
       <p>交易所注册链接、邀请码、返佣比例和新手操作说明。</p>
     </a>
     <a class="home-entry-card" :href="withBase('/临川事件合约教学/MACD/大纲')">
-      <span>02 指标研究</span>
+      <span>03 指标研究</span>
       <strong>事件合约指标研究</strong>
       <p>围绕 MACD 等指标，记录参数、逻辑和短线参考用法。</p>
     </a>
     <a class="home-entry-card" :href="withBase('/临川事件合约教学/第一期-新手基础/新手基础')">
-      <span>03 做单技巧</span>
+      <span>04 做单技巧</span>
       <strong>事件合约做单技巧分享</strong>
       <p>趋势、盘口、确认 K、流动性和进场纪律的教学整理。</p>
     </a>
     <a class="home-entry-card" :href="withBase('/临川直播战绩表格/5月份/5.22号开仓战绩')">
-      <span>04 实战战绩</span>
+      <span>05 实战战绩</span>
       <strong>事件合约直播实战战绩</strong>
       <p>后续用于沉淀直播开仓记录、结果统计和复盘结论。</p>
     </a>
