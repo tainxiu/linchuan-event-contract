@@ -1,0 +1,320 @@
+//@version=5
+indicator("临川事件指标", overlay = false, max_lines_count = 500, max_boxes_count = 500, max_labels_count = 500)
+
+//------------------------------------------------------------------------------
+// Inputs
+//------------------------------------------------------------------------------
+grpGeneral = "General"
+keepZones  = input.int(120, "保留区域数量", minval = 10, maxval = 120, group = grpGeneral)
+zoneMode   = input.string("High/Low", "区域高度", options = ["High/Low", "Open-Close"], group = grpGeneral)
+lineWidth  = input.int(1, "开盘价线粗细", minval = 1, maxval = 4, group = grpGeneral)
+
+tvBull = #26A69A
+tvBear = #EF5350
+
+grpMA = "均线 / 布林带"
+showSma10 = input.bool(true, "SMA 10", inline = "sma10", group = grpMA)
+sma10C    = input.color(color.new(#4CAF50, 0), "", inline = "sma10", group = grpMA)
+showSma40 = input.bool(true, "SMA 40", inline = "sma40", group = grpMA)
+sma40C    = input.color(color.new(#00BCD4, 0), "", inline = "sma40", group = grpMA)
+showSma80 = input.bool(true, "SMA 80", inline = "sma80", group = grpMA)
+sma80C    = input.color(color.new(#7E57C2, 0), "", inline = "sma80", group = grpMA)
+
+showBB   = input.bool(true, "BB 20 SMA close 2", group = grpMA)
+bbLen    = input.int(20, "BB Length", minval = 1, group = grpMA)
+bbMult   = input.float(2.0, "BB Mult", minval = 0.1, step = 0.1, group = grpMA)
+bbBasisC = input.color(color.new(#FFEB3B, 0), "BB 中轨", group = grpMA)
+bbUpperC = input.color(color.new(#FF1744, 0), "BB 上轨", group = grpMA)
+bbLowerC = input.color(color.new(#009688, 0), "BB 下轨", group = grpMA)
+
+grp5    = "5分钟开盘区域"
+show5   = input.bool(true, "显示 5分钟", group = grp5)
+line5C  = input.color(color.new(#00BCD4, 0), "开盘价线", group = grp5)
+up5C    = input.color(color.new(tvBull, 97), "上涨区域", group = grp5)
+down5C  = input.color(color.new(tvBear, 97), "下跌/跌破区域", group = grp5)
+
+grp30   = "30分钟开盘区域"
+show30  = input.bool(true, "显示 30分钟", group = grp30)
+line30C = input.color(color.new(color.white, 0), "开盘价线", group = grp30)
+up30C   = input.color(color.new(tvBull, 97), "上涨区域", group = grp30)
+down30C = input.color(color.new(tvBear, 97), "下跌/跌破区域", group = grp30)
+
+grp60   = "1小时开盘区域"
+show60  = input.bool(true, "显示 1小时", group = grp60)
+line60C = input.color(color.new(#FFEB3B, 0), "开盘价线", group = grp60)
+up60C   = input.color(color.new(tvBull, 97), "上涨区域", group = grp60)
+down60C = input.color(color.new(tvBear, 97), "下跌/跌破区域", group = grp60)
+
+grp240   = "4小时开盘区域"
+show240  = input.bool(true, "显示 4小时", group = grp240)
+line240C = input.color(color.new(#9C27B0, 0), "开盘价线", group = grp240)
+up240C   = input.color(color.new(tvBull, 97), "上涨区域", group = grp240)
+down240C = input.color(color.new(tvBear, 97), "下跌/跌破区域", group = grp240)
+
+grpTimer  = "5分钟倒计时"
+showTimer = input.bool(true, "只在1分钟图表显示", group = grpTimer)
+timerBg   = input.color(color.new(color.black, 15), "背景颜色", group = grpTimer)
+timerTxt  = input.color(color.white, "文字颜色", group = grpTimer)
+
+grpVSL         = "Volume Stress Level"
+vslBarShow    = input.bool(true, "显示 VSL 成交量柱", group = grpVSL)
+vslBackground = input.bool(true, "显示 VSL 背景分区", group = grpVSL)
+vslMarkShow   = input.bool(true, "在K线上标记成交量颜色", group = grpVSL)
+vslMarkSize   = input.string("小", "K线标记圆点大小", options = ["小", "适中", "最大"], group = grpVSL)
+vslLength     = input.int(200, "VSL Length : 200", minval = 1, group = grpVSL)
+vslMult       = input.float(1.0, "Multiplier : 1~0.9", minval = 0.1, maxval = 10, step = 0.1, group = grpVSL)
+
+grpRSI          = "RSI 金叉 / 死叉"
+showRsiCross    = input.bool(true, "在K线上标记 RSI 金叉/死叉", group = grpRSI)
+rsiLengthInput  = input.int(14, "RSI Length", minval = 1, group = grpRSI)
+rsiSourceInput  = input.source(close, "Source", group = grpRSI)
+rsiMaTypeInput  = input.string("SMA", "RSI 平滑均线类型", options = ["None", "SMA", "EMA", "SMMA (RMA)", "WMA", "VWMA"], group = grpRSI)
+rsiMaLengthInput = input.int(14, "RSI 平滑均线长度", minval = 1, group = grpRSI)
+
+grpMACD         = "MACD 增强标记"
+showMacdBoost   = input.bool(true, "标记 MACD 金叉后增强段", group = grpMACD)
+macdSourceInput = input.source(close, "Source", group = grpMACD)
+macdFastInput   = input.int(12, "Fast Length", minval = 1, group = grpMACD)
+macdSlowInput   = input.int(26, "Slow Length", minval = 1, group = grpMACD)
+macdSignalInput = input.int(9, "Signal Smoothing", minval = 1, group = grpMACD)
+macdStartBoost  = input.int(2, "从第几次增强开始标记", minval = 1, group = grpMACD)
+macdLabelColor  = input.color(color.new(tvBull, 0), "增强标记颜色", group = grpMACD)
+
+//------------------------------------------------------------------------------
+// SMA / BB
+//------------------------------------------------------------------------------
+plot(showSma10 ? ta.sma(close, 10) : na, "SMA 10 close", color = sma10C, linewidth = 1, force_overlay = true)
+plot(showSma40 ? ta.sma(close, 40) : na, "SMA 40 close", color = sma40C, linewidth = 1, force_overlay = true)
+plot(showSma80 ? ta.sma(close, 80) : na, "SMA 80 close", color = sma80C, linewidth = 1, force_overlay = true)
+
+bbBasis = ta.sma(close, bbLen)
+bbDev   = bbMult * ta.stdev(close, bbLen)
+bbUpper = bbBasis + bbDev
+bbLower = bbBasis - bbDev
+
+plot(showBB ? bbBasis : na, "BB 20 SMA close 2 Basis", color = bbBasisC, linewidth = 1, force_overlay = true)
+plot(showBB ? bbUpper : na, "BB 20 SMA close 2 Upper", color = bbUpperC, linewidth = 1, force_overlay = true)
+plot(showBB ? bbLower : na, "BB 20 SMA close 2 Lower", color = bbLowerC, linewidth = 1, force_overlay = true)
+
+//------------------------------------------------------------------------------
+// RSI Cross Marks
+//------------------------------------------------------------------------------
+f_rsi_ma(source, length, maType) =>
+    switch maType
+        "SMA"        => ta.sma(source, length)
+        "EMA"        => ta.ema(source, length)
+        "SMMA (RMA)" => ta.rma(source, length)
+        "WMA"        => ta.wma(source, length)
+        "VWMA"       => ta.vwma(source, length)
+        => na
+
+rsiChange = ta.change(rsiSourceInput)
+rsiUp     = ta.rma(math.max(rsiChange, 0), rsiLengthInput)
+rsiDown   = ta.rma(-math.min(rsiChange, 0), rsiLengthInput)
+rsiValue  = rsiDown == 0 ? 100 : rsiUp == 0 ? 0 : 100 - (100 / (1 + rsiUp / rsiDown))
+rsiMA     = f_rsi_ma(rsiValue, rsiMaLengthInput, rsiMaTypeInput)
+rsiGolden = showRsiCross and rsiMaTypeInput != "None" and ta.crossover(rsiValue, rsiMA)
+rsiDeath  = showRsiCross and rsiMaTypeInput != "None" and ta.crossunder(rsiValue, rsiMA)
+
+plotshape(rsiGolden, "RSI 金叉K", style = shape.triangleup, location = location.belowbar, color = tvBull, size = size.small, text = "RSI", textcolor = tvBull, force_overlay = true)
+plotshape(rsiDeath, "RSI 死叉K", style = shape.triangledown, location = location.abovebar, color = tvBear, size = size.small, text = "RSI", textcolor = tvBear, force_overlay = true)
+
+//------------------------------------------------------------------------------
+// MACD Boost Marks
+//------------------------------------------------------------------------------
+[macdLine, macdSignal, macdHist] = ta.macd(macdSourceInput, macdFastInput, macdSlowInput, macdSignalInput)
+macdGolden = ta.crossover(macdLine, macdSignal)
+macdDeath  = ta.crossunder(macdLine, macdSignal)
+
+var bool macdBullPhase = false
+var bool macdBullBoosting = false
+var int macdBullBoostCount = 0
+
+if macdGolden
+    macdBullPhase := true
+    macdBullBoosting := false
+    macdBullBoostCount := 0
+
+if macdDeath
+    macdBullPhase := false
+    macdBullBoosting := false
+    macdBullBoostCount := 0
+
+macdBoostNow = showMacdBoost and macdBullPhase and macdHist > macdHist[1]
+
+if macdBoostNow and not macdBullBoosting
+    macdBullBoostCount += 1
+
+macdBullBoosting := macdBoostNow
+
+if macdBoostNow and macdBullBoostCount >= macdStartBoost
+    boostNo = macdBullBoostCount - macdStartBoost + 1
+    label.new(bar_index, low, "V" + str.tostring(boostNo), yloc = yloc.belowbar, style = label.style_label_up, color = macdLabelColor, textcolor = color.white, size = size.small, force_overlay = true)
+
+//------------------------------------------------------------------------------
+// Volume Stress Level
+//------------------------------------------------------------------------------
+vslSrc          = ta.sma(volume, 1)
+vslDynamicLen   = math.min(vslLength, bar_index + 1)
+vslBasis        = ta.sma(vslSrc, vslDynamicLen)
+vslDev          = vslMult * ta.stdev(vslSrc, vslDynamicLen)
+vslUpper        = vslBasis + vslDev
+vslVolP1        = vslBasis * 0.5
+vslVolP2        = vslUpper
+vslVolP3        = vslUpper * 1.8
+vslVolP4        = vslUpper * 2.6
+vslVolP5        = vslUpper * 2.7
+vslBgTransp     = 90
+vslColor        = vslSrc > vslVolP5 ? #000000 : vslSrc > vslVolP4 ? #FF0000 : vslSrc > vslVolP3 ? #FF7F00 : vslSrc > vslVolP2 ? #FFFF00 : vslSrc > vslVolP1 ? #2196F3 : #FFFFFF
+vslMarkerColor  = vslSrc > vslVolP5 ? #000000 : vslSrc > vslVolP4 ? #FF0000 : vslSrc > vslVolP3 ? #FF7F00 : vslSrc > vslVolP2 ? #FFFF00 : vslSrc > vslVolP1 ? close >= open ? tvBull : tvBear : color.new(color.white, 20)
+vslBullBar      = close >= open
+vslBearBar      = close < open
+vslMarkSmall    = vslMarkSize == "小"
+vslMarkMedium   = vslMarkSize == "适中"
+vslMarkLarge    = vslMarkSize == "最大"
+
+vslp0 = plot(0, color = na, display = display.none, editable = false)
+vslp1 = plot(vslBackground ? vslVolP1 : na, color = na, display = display.none, editable = false)
+vslp2 = plot(vslBackground ? vslVolP2 : na, color = na, display = display.none, editable = false)
+vslp3 = plot(vslBackground ? vslVolP3 : na, color = na, display = display.none, editable = false)
+vslp4 = plot(vslBackground ? vslVolP4 : na, color = na, display = display.none, editable = false)
+vslp5 = plot(vslBackground ? vslVolP5 : na, color = na, display = display.none, editable = false)
+
+fill(vslp0, vslp1, color.new(#FFFFFF, vslBgTransp), title = "Low Volume Zone")
+fill(vslp1, vslp2, color.new(#2196F3, vslBgTransp), title = "Normal Volume Zone")
+fill(vslp2, vslp3, color.new(#FFFF00, vslBgTransp), title = "Medium Volume Zone")
+fill(vslp3, vslp4, color.new(#FF7F00, vslBgTransp), title = "High Volume Zone")
+fill(vslp4, vslp5, color.new(#000000, vslBgTransp), title = "Spike Volume Zone")
+
+plot(vslBarShow ? vslSrc : na, "VSL Volume", style = plot.style_columns, color = vslColor)
+plotshape(vslMarkShow and vslBullBar and vslMarkSmall, "VSL 上涨K成交量标记 小", style = shape.circle, location = location.belowbar, color = vslMarkerColor, size = size.auto, force_overlay = true)
+plotshape(vslMarkShow and vslBearBar and vslMarkSmall, "VSL 下降K成交量标记 小", style = shape.circle, location = location.abovebar, color = vslMarkerColor, size = size.auto, force_overlay = true)
+plotshape(vslMarkShow and vslBullBar and vslMarkMedium, "VSL 上涨K成交量标记 适中", style = shape.circle, location = location.belowbar, color = vslMarkerColor, size = size.tiny, force_overlay = true)
+plotshape(vslMarkShow and vslBearBar and vslMarkMedium, "VSL 下降K成交量标记 适中", style = shape.circle, location = location.abovebar, color = vslMarkerColor, size = size.tiny, force_overlay = true)
+plotshape(vslMarkShow and vslBullBar and vslMarkLarge, "VSL 上涨K成交量标记 最大", style = shape.circle, location = location.belowbar, color = vslMarkerColor, size = size.small, force_overlay = true)
+plotshape(vslMarkShow and vslBearBar and vslMarkLarge, "VSL 下降K成交量标记 最大", style = shape.circle, location = location.abovebar, color = vslMarkerColor, size = size.small, force_overlay = true)
+
+//------------------------------------------------------------------------------
+// Helpers
+//------------------------------------------------------------------------------
+chartSec = timeframe.in_seconds(timeframe.period)
+barMs    = int(chartSec * 1000)
+
+canShow5   = timeframe.isintraday and chartSec <= 5 * 60
+canShow30  = timeframe.isintraday and chartSec <= 30 * 60
+canShow60  = timeframe.isintraday and chartSec <= 60 * 60
+canShow240 = timeframe.isintraday and chartSec <= 240 * 60
+
+f_left(_start) =>
+    _start - barMs
+
+f_right(_start, _minutes) =>
+    endTime = _start + _minutes * 60 * 1000
+    math.min(time, endTime - barMs)
+
+f_pad2(_n) =>
+    _n < 10 ? "0" + str.tostring(_n) : str.tostring(_n)
+
+timerTZ = "Asia/Shanghai"
+
+f_next_5m_boundary() =>
+    fiveMinMs = 5 * 60 * 1000
+    int(math.floor(timenow / fiveMinMs) * fiveMinMs + fiveMinMs)
+
+f_5m_display_end() =>
+    f_next_5m_boundary() - 60 * 1000
+
+f_5m_end_time() =>
+    str.format_time(f_5m_display_end(), "HH:mm", timerTZ)
+
+f_countdown_5m_display() =>
+    leftMs = math.max(f_5m_display_end() - timenow, 0)
+    leftS  = int(math.floor(leftMs / 1000))
+    m      = int(math.floor(leftS / 60))
+    s      = leftS % 60
+    f_pad2(m) + ":" + f_pad2(s)
+
+//------------------------------------------------------------------------------
+// Zone Type
+//------------------------------------------------------------------------------
+type ZoneState
+    array<box> boxes
+    array<line> lines
+    box bx
+    line ln
+    float op
+    float hi
+    float lo
+    int st
+
+method draw(ZoneState z, bool enabled, bool allowed, simple string tf, simple int minutes, color lineColor, color upColor, color downColor, lineStyle) =>
+    newPeriod = timeframe.change(tf)
+
+    if enabled and allowed
+        if newPeriod or na(z.bx)
+            z.op := open
+            z.hi := high
+            z.lo := low
+            z.st := time(tf)
+
+            left  = f_left(z.st)
+            right = f_right(z.st, minutes)
+            top   = zoneMode == "High/Low" ? z.hi : math.max(z.op, close)
+            btm   = zoneMode == "High/Low" ? z.lo : math.min(z.op, close)
+            bg    = close >= z.op ? upColor : downColor
+
+            z.bx := box.new(left, top, right, btm, xloc = xloc.bar_time, border_color = color.new(lineColor, 85), bgcolor = bg, force_overlay = true)
+            z.ln := line.new(left, z.op, right, z.op, xloc = xloc.bar_time, color = lineColor, style = lineStyle, width = lineWidth, force_overlay = true)
+
+            array.unshift(z.boxes, z.bx)
+            array.unshift(z.lines, z.ln)
+
+            if array.size(z.boxes) > keepZones
+                oldBox = array.pop(z.boxes)
+                box.delete(oldBox)
+
+            if array.size(z.lines) > keepZones
+                oldLine = array.pop(z.lines)
+                line.delete(oldLine)
+        else
+            z.hi := math.max(z.hi, high)
+            z.lo := math.min(z.lo, low)
+
+            right = f_right(z.st, minutes)
+            top   = zoneMode == "High/Low" ? z.hi : math.max(z.op, close)
+            btm   = zoneMode == "High/Low" ? z.lo : math.min(z.op, close)
+            bg    = close >= z.op ? upColor : downColor
+
+            box.set_top(z.bx, top)
+            box.set_bottom(z.bx, btm)
+            box.set_right(z.bx, right)
+            box.set_bgcolor(z.bx, bg)
+            line.set_x2(z.ln, right)
+
+//------------------------------------------------------------------------------
+// Zones
+//------------------------------------------------------------------------------
+var ZoneState z5   = ZoneState.new(array.new_box(), array.new_line(), na, na, na, na, na, na)
+var ZoneState z30  = ZoneState.new(array.new_box(), array.new_line(), na, na, na, na, na, na)
+var ZoneState z60  = ZoneState.new(array.new_box(), array.new_line(), na, na, na, na, na, na)
+var ZoneState z240 = ZoneState.new(array.new_box(), array.new_line(), na, na, na, na, na, na)
+
+z5.draw(show5, canShow5, "5", 5, line5C, up5C, down5C, line.style_dotted)
+z30.draw(show30, canShow30, "30", 30, line30C, up30C, down30C, line.style_solid)
+z60.draw(show60, canShow60, "60", 60, line60C, up60C, down60C, line.style_solid)
+z240.draw(show240, canShow240, "240", 240, line240C, up240C, down240C, line.style_solid)
+
+//------------------------------------------------------------------------------
+// 只在1分钟图表显示：UTC+8 5分钟显示结束时间 / 倒计时
+//------------------------------------------------------------------------------
+is1mChart = timeframe.isintraday and chartSec == 60
+
+var table timerTable = table.new(position.top_center, 2, 1, force_overlay = true)
+
+if barstate.islast
+    if showTimer and is1mChart
+        table.cell(timerTable, 0, 0, "", width = 12, bgcolor = color.new(color.black, 100))
+        table.cell(timerTable, 1, 0, "UTC+8  " + f_5m_end_time() + " / 5m倒计时 " + f_countdown_5m_display(), text_color = timerTxt, bgcolor = timerBg, text_size = size.normal)
+    else
+        table.cell(timerTable, 0, 0, "", bgcolor = color.new(color.black, 100))
+        table.cell(timerTable, 1, 0, "", bgcolor = color.new(color.black, 100))
