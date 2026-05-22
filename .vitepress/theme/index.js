@@ -1,4 +1,4 @@
 import DefaultTheme from 'vitepress/theme'
-import './mobile.css'
+import './trader.css'
 
 export default DefaultTheme
