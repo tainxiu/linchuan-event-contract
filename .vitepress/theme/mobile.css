@@ -1,0 +1,96 @@
+:root {
+  --vp-c-brand-1: #2563eb;
+  --vp-c-brand-2: #1d4ed8;
+}
+
+.vp-doc {
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.vp-doc img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 20px auto;
+  border-radius: 12px;
+}
+
+.vp-doc table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.vp-doc div[class*='language-'] {
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .VPDoc {
+    padding-top: 10px;
+  }
+
+  .VPDoc .content {
+    padding: 0 18px 32px;
+  }
+
+  .vp-doc {
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+  .vp-doc h1 {
+    font-size: 26px;
+    line-height: 1.35;
+  }
+
+  .vp-doc h2 {
+    margin-top: 32px;
+    font-size: 22px;
+  }
+
+  .vp-doc h3 {
+    margin-top: 24px;
+    font-size: 18px;
+  }
+
+  .vp-doc p,
+  .vp-doc li {
+    word-break: break-word;
+  }
+
+  .vp-doc ul,
+  .vp-doc ol {
+    padding-left: 1.35em;
+  }
+
+  .vp-doc div[class*='language-'] {
+    font-size: 13px;
+  }
+
+  .vp-doc [class*='language-'] code {
+    white-space: pre;
+  }
+
+  .VPHero .name {
+    font-size: 34px;
+    line-height: 1.2;
+  }
+
+  .VPHero .text {
+    font-size: 24px;
+    line-height: 1.35;
+  }
+
+  .VPHero .tagline {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .VPFeatures {
+    padding: 0 18px 36px;
+  }
+}
