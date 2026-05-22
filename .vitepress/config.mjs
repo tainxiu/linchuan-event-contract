@@ -1,5 +1,5 @@
 export default {
-  title: '临川事件交易笔记',
+  title: '临川事件合约交易笔记',
   description: '合约教学、指标研究与交易复盘',
   lang: 'zh-CN',
   base: '/linchuan-event-contract/',
@@ -10,7 +10,7 @@ export default {
     }
   },
   themeConfig: {
-    siteTitle: '临川事件交易笔记',
+    siteTitle: '临川事件合约交易笔记',
     nav: [
       { text: '首页', link: '/' },
       { text: '合约教学', link: '/临川事件合约教学/第一期-新手基础/新手基础' },

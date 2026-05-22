@@ -1,36 +1,38 @@
 ---
 layout: home
-
-hero:
-  name: 临川事件交易笔记
-  text: 事件合约短线交易体系
-  tagline: 把趋势、盘口、流动性、MACD 和实战复盘整理成一套可反复阅读的交易手册。
-  actions:
-    - theme: brand
-      text: 开始阅读
-      link: /临川事件合约教学/第一期-新手基础/新手基础
-    - theme: alt
-      text: MACD 大纲
-      link: /临川事件合约教学/MACD/大纲
-
-features:
-  - title: 合约教学
-    details: 按课程期数整理事件合约的基础、形态、盘口与进场逻辑。
-  - title: 指标研究
-    details: 记录 MACD 等指标的源码、参数、用法和交易场景。
-  - title: 实战复盘
-    details: 后续可以继续加入每次交易的入场、出场、风控和复盘结论。
 ---
 
-<div class="home-panel">
-  <div class="home-panel-card">
-    <span class="home-panel-kicker">Learning Path</span>
-    <h2>先建立框架，再练进场纪律</h2>
-    <p>从新手基础开始，先理解趋势、盘口、确认 K 和流动性，再进入 MACD 与事件合约的短线判断。</p>
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
+<section class="home-entry">
+  <div class="home-entry-hero">
+    <img class="home-entry-avatar" :src="withBase('/images/linchuan-avatar.png')" alt="临川事件头像" />
+    <p class="home-entry-kicker">Event Contract Notes</p>
+    <h1>临川事件合约交易笔记</h1>
   </div>
-  <div class="home-panel-card">
-    <span class="home-panel-kicker">Trading Notes</span>
-    <h2>每一篇都为实盘复盘服务</h2>
-    <p>这个网站不是单纯记知识点，而是把能在盘中执行的判断流程沉淀下来，方便手机端快速回看。</p>
+
+  <div class="home-entry-grid">
+    <a class="home-entry-card" :href="withBase('/临川事件合约推广链接/临川事件交易所注册返佣链接')">
+      <span>01 事件合约</span>
+      <strong>事件合约邀请返佣链接</strong>
+      <p>交易所注册链接、邀请码、返佣比例和新手操作说明。</p>
+    </a>
+    <a class="home-entry-card" :href="withBase('/临川事件合约教学/MACD/大纲')">
+      <span>02 指标研究</span>
+      <strong>事件合约指标研究</strong>
+      <p>围绕 MACD 等指标，记录参数、逻辑和短线参考用法。</p>
+    </a>
+    <a class="home-entry-card" :href="withBase('/临川事件合约教学/第一期-新手基础/新手基础')">
+      <span>03 做单技巧</span>
+      <strong>事件合约做单技巧分享</strong>
+      <p>趋势、盘口、确认 K、流动性和进场纪律的教学整理。</p>
+    </a>
+    <a class="home-entry-card" :href="withBase('/临川直播战绩表格/5月份/5.22号开仓战绩')">
+      <span>04 实战战绩</span>
+      <strong>事件合约直播实战战绩</strong>
+      <p>后续用于沉淀直播开仓记录、结果统计和复盘结论。</p>
+    </a>
   </div>
-</div>
+</section>
