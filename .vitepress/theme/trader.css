@@ -1,49 +1,47 @@
 :root {
-  --vp-c-bg: #070b10;
-  --vp-c-bg-alt: #0b1117;
-  --vp-c-bg-elv: #0f171d;
-  --vp-c-bg-soft: #111b22;
-  --vp-c-divider: rgba(104, 120, 132, 0.24);
-  --vp-c-gutter: rgba(104, 120, 132, 0.18);
-  --vp-c-text-1: #eef6f3;
-  --vp-c-text-2: #a8b7b4;
-  --vp-c-text-3: #748580;
-  --vp-c-brand-1: #22c55e;
-  --vp-c-brand-2: #16a34a;
-  --vp-c-brand-3: #15803d;
-  --vp-c-brand-soft: rgba(34, 197, 94, 0.15);
+  --vp-c-brand-1: #4f46e5;
+  --vp-c-brand-2: #6366f1;
+  --vp-c-brand-3: #818cf8;
+  --vp-c-brand-soft: rgba(99, 102, 241, 0.14);
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-alt: #f8fbff;
+  --vp-c-bg-soft: #f3f7ff;
+  --vp-c-text-1: #172033;
+  --vp-c-text-2: #526070;
+  --vp-c-text-3: #7b8794;
+  --vp-c-divider: rgba(91, 107, 135, 0.16);
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(110deg, #e6fff2 0%, #22c55e 38%, #38bdf8 72%, #f43f5e 100%);
+  --vp-home-hero-name-background: linear-gradient(115deg, #2563eb 0%, #7c3aed 48%, #06b6d4 100%);
   --vp-home-hero-image-background-image:
-    radial-gradient(circle at 28% 24%, rgba(34, 197, 94, 0.34), transparent 24%),
-    radial-gradient(circle at 74% 32%, rgba(56, 189, 248, 0.24), transparent 24%),
-    radial-gradient(circle at 52% 78%, rgba(244, 63, 94, 0.14), transparent 22%);
+    radial-gradient(circle at 26% 24%, rgba(99, 102, 241, 0.32), transparent 26%),
+    radial-gradient(circle at 78% 34%, rgba(6, 182, 212, 0.24), transparent 24%),
+    radial-gradient(circle at 46% 78%, rgba(124, 58, 237, 0.16), transparent 24%);
   --vp-home-hero-image-filter: blur(48px);
 }
 
 html,
 body {
-  background: #070b10 !important;
+  background: #ffffff;
 }
 
 body {
   color: var(--vp-c-text-1);
   background:
-    linear-gradient(180deg, rgba(7, 11, 16, 0.82), #070b10 360px),
-    radial-gradient(circle at 14% 0%, rgba(34, 197, 94, 0.13), transparent 30%),
-    radial-gradient(circle at 88% 6%, rgba(56, 189, 248, 0.10), transparent 28%),
-    #070b10 !important;
+    radial-gradient(circle at 8% 0%, rgba(99, 102, 241, 0.10), transparent 28%),
+    radial-gradient(circle at 92% 4%, rgba(6, 182, 212, 0.10), transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 460px, #ffffff 100%);
 }
 
 .VPNav {
-  border-bottom: 1px solid rgba(104, 120, 132, 0.18) !important;
-  background: rgba(7, 11, 16, 0.82) !important;
-  backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid rgba(91, 107, 135, 0.12) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(18px) saturate(160%);
 }
 
 .VPNavBarTitle .title {
-  color: #eef6f3;
-  letter-spacing: 0.02em;
+  color: #172033;
+  font-weight: 800;
+  letter-spacing: 0.01em;
 }
 
 .VPHero .name,
@@ -52,8 +50,8 @@ body {
 }
 
 .VPHero .tagline {
-  max-width: 640px;
-  color: #9fb0ad;
+  max-width: 660px;
+  color: #5f6e82;
 }
 
 .VPHero .actions {
@@ -62,37 +60,38 @@ body {
 
 .VPHero .actions .action .VPButton {
   border-radius: 999px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .VPHero .actions .action .VPButton.brand {
-  border-color: rgba(34, 197, 94, 0.55) !important;
-  background: linear-gradient(135deg, #22c55e, #0891b2) !important;
-  box-shadow: 0 18px 42px rgba(34, 197, 94, 0.18);
+  border-color: transparent !important;
+  background: linear-gradient(135deg, #4f46e5, #06b6d4) !important;
+  box-shadow: 0 18px 40px rgba(79, 70, 229, 0.22);
 }
 
 .VPHero .actions .action .VPButton.alt {
-  border-color: rgba(148, 163, 184, 0.24) !important;
-  background: rgba(15, 23, 42, 0.72) !important;
-  color: #d8e4e1 !important;
+  border-color: rgba(99, 102, 241, 0.18) !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  color: #334155 !important;
+  box-shadow: 0 12px 30px rgba(30, 41, 59, 0.08);
 }
 
 .VPFeature {
-  border: 1px solid rgba(104, 120, 132, 0.24) !important;
+  border: 1px solid rgba(99, 102, 241, 0.12) !important;
   border-radius: 24px !important;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.014)),
-    #0d151b !important;
-  box-shadow: 0 20px 54px rgba(0, 0, 0, 0.28) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 251, 255, 0.88)),
+    #ffffff !important;
+  box-shadow: 0 18px 50px rgba(30, 41, 59, 0.08) !important;
 }
 
 .VPFeature .title {
-  color: #eef6f3;
+  color: #172033;
   font-size: 18px;
 }
 
 .VPFeature .details {
-  color: #91a19e;
+  color: #64748b;
   line-height: 1.75;
 }
 
@@ -105,31 +104,22 @@ body {
 .home-panel-card {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(104, 120, 132, 0.24) !important;
+  border: 1px solid rgba(99, 102, 241, 0.14) !important;
   background:
-    linear-gradient(135deg, rgba(13, 21, 27, 0.96), rgba(10, 16, 22, 0.92)),
-    repeating-linear-gradient(90deg, rgba(34, 197, 94, 0.10) 0 1px, transparent 1px 72px) !important;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28) !important;
-}
-
-.home-panel-card::before {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, transparent 0 68%, rgba(34, 197, 94, 0.08) 68% 69%, transparent 69%),
-    linear-gradient(180deg, transparent 0 58%, rgba(244, 63, 94, 0.07) 58% 59%, transparent 59%);
-  content: '';
-  pointer-events: none;
+    radial-gradient(circle at 86% 18%, rgba(99, 102, 241, 0.16), transparent 30%),
+    radial-gradient(circle at 16% 84%, rgba(6, 182, 212, 0.13), transparent 28%),
+    linear-gradient(135deg, #ffffff, #f6f9ff) !important;
+  box-shadow: 0 24px 64px rgba(30, 41, 59, 0.10) !important;
 }
 
 .home-panel-card::after {
   position: absolute;
-  right: -54px;
-  bottom: -54px;
-  width: 180px;
-  height: 180px;
+  right: -52px;
+  bottom: -52px;
+  width: 170px;
+  height: 170px;
   border-radius: 999px;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.20), transparent 68%) !important;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.15), transparent 68%);
   content: '';
 }
 
@@ -139,9 +129,10 @@ body {
   display: inline-flex;
   margin-bottom: 18px;
   padding: 6px 12px;
-  border: 1px solid rgba(34, 197, 94, 0.34) !important;
+  border: 1px solid rgba(79, 70, 229, 0.18) !important;
   border-radius: 999px;
-  color: #86efac !important;
+  background: rgba(99, 102, 241, 0.08);
+  color: #4f46e5 !important;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -156,36 +147,36 @@ body {
 
 .home-panel-card h2 {
   margin: 0 0 12px;
-  color: #f8fffc !important;
+  color: #172033 !important;
   line-height: 1.24;
 }
 
 .home-panel-card p {
   max-width: 520px;
   margin: 0;
-  color: #a8b7b4 !important;
+  color: #64748b !important;
   line-height: 1.85;
 }
 
 .VPDoc {
   background:
-    radial-gradient(circle at 20% 0%, rgba(34, 197, 94, 0.08), transparent 28%),
-    #070b10 !important;
+    radial-gradient(circle at 18% 0%, rgba(99, 102, 241, 0.07), transparent 26%),
+    #ffffff !important;
 }
 
 .VPDoc .content-container {
-  border: 1px solid rgba(104, 120, 132, 0.22);
+  border: 1px solid rgba(91, 107, 135, 0.12);
   border-radius: 24px;
-  background: rgba(11, 17, 23, 0.86);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 22px 64px rgba(30, 41, 59, 0.08);
 }
 
 .VPDocAsideOutline .content {
-  border-left-color: rgba(34, 197, 94, 0.28);
+  border-left-color: rgba(99, 102, 241, 0.22);
 }
 
 .vp-doc {
-  color: var(--vp-c-text-1);
+  color: #172033;
   font-size: 17px;
   line-height: 1.86;
 }
@@ -193,38 +184,38 @@ body {
 .vp-doc h1,
 .vp-doc h2,
 .vp-doc h3 {
-  color: #f5fffb;
+  color: #172033;
   letter-spacing: -0.025em;
 }
 
 .vp-doc h2 {
-  border-top: 1px solid rgba(104, 120, 132, 0.20);
+  border-top: 1px solid rgba(91, 107, 135, 0.12);
   padding-top: 28px;
 }
 
 .vp-doc p,
 .vp-doc li {
-  color: #a8b7b4;
+  color: #526070;
 }
 
 .vp-doc strong {
-  color: #e6fff2;
+  color: #1e293b;
 }
 
 .vp-doc a {
-  color: #67e8f9;
-  text-decoration-color: rgba(103, 232, 249, 0.35);
+  color: #4f46e5;
+  text-decoration-color: rgba(79, 70, 229, 0.28);
 }
 
 .vp-doc li::marker {
-  color: #22c55e;
+  color: #6366f1;
 }
 
 .vp-doc blockquote {
-  border-left: 4px solid #22c55e;
+  border-left: 4px solid #6366f1;
   border-radius: 0 14px 14px 0;
-  background: rgba(34, 197, 94, 0.08);
-  color: #b8c8c4;
+  background: rgba(99, 102, 241, 0.08);
+  color: #526070;
 }
 
 .vp-doc img {
@@ -232,9 +223,9 @@ body {
   max-width: 100%;
   height: auto;
   margin: 22px auto;
-  border: 1px solid rgba(104, 120, 132, 0.24) !important;
+  border: 1px solid rgba(91, 107, 135, 0.14) !important;
   border-radius: 18px;
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32) !important;
+  box-shadow: 0 18px 46px rgba(30, 41, 59, 0.12) !important;
 }
 
 .vp-doc table {
@@ -246,10 +237,10 @@ body {
 .vp-doc div[class*='language-'] {
   margin-left: 0;
   margin-right: 0;
-  border: 1px solid rgba(104, 120, 132, 0.24) !important;
+  border: 1px solid rgba(91, 107, 135, 0.12) !important;
   border-radius: 16px;
-  background: #05080c !important;
-  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.30) !important;
+  background: #f8fafc !important;
+  box-shadow: 0 16px 42px rgba(30, 41, 59, 0.08) !important;
 }
 
 @media (min-width: 769px) {

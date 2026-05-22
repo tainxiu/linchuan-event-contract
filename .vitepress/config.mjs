@@ -3,7 +3,6 @@ export default {
   description: '合约教学、指标研究与交易复盘',
   lang: 'zh-CN',
   base: '/linchuan-event-contract/',
-  appearance: 'dark',
   cleanUrls: true,
   markdown: {
     languageAlias: {
