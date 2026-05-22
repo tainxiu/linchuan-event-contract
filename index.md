@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: 临川事件交易笔记
-  text: 合约教学、指标研究与实战复盘
-  tagline: 用 Markdown 沉淀交易体系，按章节持续整理。
+  text: 事件合约短线交易体系
+  tagline: 把趋势、盘口、流动性、MACD 和实战复盘整理成一套可反复阅读的交易手册。
   actions:
     - theme: brand
       text: 开始阅读
@@ -21,3 +21,16 @@ features:
   - title: 实战复盘
     details: 后续可以继续加入每次交易的入场、出场、风控和复盘结论。
 ---
+
+<div class="home-panel">
+  <div class="home-panel-card">
+    <span class="home-panel-kicker">Learning Path</span>
+    <h2>先建立框架，再练进场纪律</h2>
+    <p>从新手基础开始，先理解趋势、盘口、确认 K 和流动性，再进入 MACD 与事件合约的短线判断。</p>
+  </div>
+  <div class="home-panel-card">
+    <span class="home-panel-kicker">Trading Notes</span>
+    <h2>每一篇都为实盘复盘服务</h2>
+    <p>这个网站不是单纯记知识点，而是把能在盘中执行的判断流程沉淀下来，方便手机端快速回看。</p>
+  </div>
+</div>
