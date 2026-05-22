@@ -2,6 +2,7 @@ export default {
   title: '临川事件交易笔记',
   description: '合约教学、指标研究与交易复盘',
   lang: 'zh-CN',
+  base: '/linchuan-event-contract/',
   cleanUrls: true,
   markdown: {
     languageAlias: {
