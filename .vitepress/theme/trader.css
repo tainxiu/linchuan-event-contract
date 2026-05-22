@@ -158,6 +158,118 @@ body {
   line-height: 1.85;
 }
 
+.rebate-hero {
+  position: relative;
+  overflow: hidden;
+  margin: 8px 0 24px;
+  padding: 28px;
+  border: 1px solid rgba(99, 102, 241, 0.16);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 88% 16%, rgba(6, 182, 212, 0.18), transparent 32%),
+    radial-gradient(circle at 12% 88%, rgba(99, 102, 241, 0.16), transparent 30%),
+    linear-gradient(135deg, #ffffff, #f6f9ff);
+  box-shadow: 0 22px 58px rgba(30, 41, 59, 0.10);
+}
+
+.rebate-hero h2 {
+  margin: 0 0 12px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  font-size: 30px !important;
+  line-height: 1.25;
+}
+
+.rebate-hero p {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0;
+  color: #64748b !important;
+}
+
+.rebate-kicker {
+  display: inline-flex;
+  margin-bottom: 12px !important;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(79, 70, 229, 0.10);
+  color: #4f46e5 !important;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rebate-grid {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0 30px;
+}
+
+.rebate-card {
+  display: block;
+  padding: 18px;
+  border: 1px solid rgba(99, 102, 241, 0.14);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 255, 0.88)),
+    #ffffff;
+  box-shadow: 0 14px 34px rgba(30, 41, 59, 0.07);
+  text-decoration: none !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.rebate-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(79, 70, 229, 0.28);
+  box-shadow: 0 20px 42px rgba(30, 41, 59, 0.10);
+}
+
+.rebate-card span {
+  display: inline-flex;
+  margin-bottom: 8px;
+  color: #6366f1;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rebate-card strong {
+  display: block;
+  color: #172033;
+  font-size: 17px;
+}
+
+.rebate-card p {
+  margin: 8px 0 0;
+  color: #64748b !important;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.rebate-info {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0 24px;
+  padding: 18px;
+  border: 1px solid rgba(91, 107, 135, 0.14);
+  border-radius: 18px;
+  background: #f8fbff;
+}
+
+.rebate-info > div {
+  display: grid;
+  gap: 6px;
+}
+
+.rebate-label {
+  color: #7b8794;
+  font-size: 13px;
+  font-weight: 800;
+}
+
 .VPDoc {
   background:
     radial-gradient(circle at 18% 0%, rgba(99, 102, 241, 0.07), transparent 26%),
@@ -234,6 +346,29 @@ body {
   white-space: nowrap;
 }
 
+.vp-doc table th {
+  background: #eef2ff;
+  color: #334155;
+  font-weight: 800;
+}
+
+.vp-doc table th,
+.vp-doc table td {
+  padding: 10px 14px;
+}
+
+.trade-long,
+.profit {
+  color: #16a34a;
+  font-weight: 800;
+}
+
+.trade-short,
+.loss {
+  color: #dc2626;
+  font-weight: 800;
+}
+
 .vp-doc div[class*='language-'] {
   margin-left: 0;
   margin-right: 0;
@@ -301,6 +436,10 @@ body {
     font-size: 16px !important;
   }
 
+  .rebate-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .VPDoc .content-container {
     max-width: 850px !important;
     padding: 28px 38px 42px;
@@ -363,6 +502,19 @@ body {
 
   .home-panel-card p {
     font-size: 15px !important;
+  }
+
+  .rebate-hero {
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .rebate-hero h2 {
+    font-size: 23px !important;
+  }
+
+  .rebate-grid {
+    grid-template-columns: 1fr;
   }
 
   .VPDoc {
