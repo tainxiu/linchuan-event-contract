@@ -62,7 +62,11 @@ const exchanges = [
       '通过主播推广码注册的账号会自动成为代理商账户，代理商号交易事件无法自己返自己。',
       '正确流程：登录代理商账号 → 主页 → 邀请返佣 → 事件合约返佣 → 复制你自己的邀请码 → 重新通过这个邀请码注册新号 → 用新号交易。',
       '请尽量体验 3 分钟以上；注意该平台 K 线与币安平台可能不一致。',
-      '如果你想邀请别人来交易，并且对方也需要自返，需要登录 https://cydataboard.biz/#/invite 后台，给对方设置一个推广码。推广码格式自己定，收益统一写 0，事件返佣比例自己定；你邀请完成后，对方还需要再邀请自己一次。'
+      {
+        before: '如果你想邀请别人来交易，并且对方也需要自返，需要登录 ',
+        link: 'https://cydataboard.biz/#/invite',
+        after: ' 后台，给对方设置一个推广码。推广码格式自己定，收益统一写 0，事件返佣比例自己定；你邀请完成后，对方还需要再邀请自己一次。'
+      }
     ],
     extra: {
       title: '下载与安装',
@@ -124,7 +128,14 @@ const exchanges = [
             <div class="exchange-row exchange-guide">
               <b>使用说明</b>
               <ol>
-                <li v-for="note in exchange.notes" :key="note">{{ note }}</li>
+                <li v-for="note in exchange.notes" :key="typeof note === 'string' ? note : note.link">
+                  <template v-if="typeof note === 'string'">{{ note }}</template>
+                  <template v-else>
+                    {{ note.before }}
+                    <a :href="note.link" target="_blank" rel="noreferrer">{{ note.link }}</a>
+                    {{ note.after }}
+                  </template>
+                </li>
               </ol>
             </div>
 
