@@ -9,20 +9,40 @@
       <details class="exchange-card" open>
         <summary>
           <span>01 Turboflow</span>
-          <strong>Turboflow 交易量活动</strong>
-          <small>活动规则待定</small>
+          <strong>Turboflow 体验金活动</strong>
+          <small>每周不限时抽取体验金</small>
         </summary>
         <div class="exchange-body">
           <div class="exchange-row exchange-guide">
-            <b>当前状态</b>
-            <p>具体活动时间、交易量要求和奖励规则待平台确认后更新。</p>
+            <b>活动内容</b>
+            <p>每周不限时抽取体验金活动，具体领取方式和体验金金额以后续通知为准。</p>
           </div>
         </div>
       </details>
 
       <details class="exchange-card" open>
         <summary>
-          <span>02 HIBT</span>
+          <span>02 猪脚饭</span>
+          <strong>每周六临川猪脚饭活动</strong>
+          <small>每周六 19:00 开始</small>
+        </summary>
+
+        <div class="exchange-body">
+          <div class="exchange-row exchange-guide">
+            <b>活动时间</b>
+            <p>每周六晚上 19:00 开始。</p>
+          </div>
+
+          <div class="exchange-row">
+            <b>领取要求</b>
+            <p>注册主播某个交易所的返佣码，并且产生交易的情况下，可以领取猪脚饭活动福利。</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="exchange-card" open>
+        <summary>
+          <span>03 HIBT</span>
           <strong>HIBT 交易量活动</strong>
           <small>2026 年 5 月 12 号 - 2026 年 6 月 12 号</small>
         </summary>
